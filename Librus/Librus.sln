@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Librus", "Librus\Librus.csproj", "{58E600A2-9C8A-4D4B-BB8B-937F6B31659C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58E600A2-9C8A-4D4B-BB8B-937F6B31659C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58E600A2-9C8A-4D4B-BB8B-937F6B31659C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58E600A2-9C8A-4D4B-BB8B-937F6B31659C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58E600A2-9C8A-4D4B-BB8B-937F6B31659C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4879BC54-FA95-4C55-B36E-4E3A2A4D5B2B}
+	EndGlobalSection
+EndGlobal
