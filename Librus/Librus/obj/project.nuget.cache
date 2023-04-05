@@ -1,18 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9BNohiM+LJYBY4WxYUPL93lnxKclYF1o7cYJqAZfTxAweq2O5Poxvst/1LRkcNYfDDD3LyMfR4o3Z9fFX+IwgA==",
+  "dgSpecHash": "Ov4pAl7PbIMyMfi+vbIbJbOBLT+m53LiEfkBbHXPiwzCGBbOr10sYenwuDc7IAI3TKm4UcKoYUPTyJKwqDt8Lg==",
   "success": true,
   "projectFilePath": "C:\\Users\\egzamin\\Documents\\GitHub\\Librus\\Librus\\Librus\\Librus.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\egzamin\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
-    "C:\\Users\\egzamin\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
-    "C:\\Users\\egzamin\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
-    "C:\\Users\\egzamin\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
-    "C:\\Users\\egzamin\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
-    "C:\\Users\\egzamin\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
-    "C:\\Users\\egzamin\\.nuget\\packages\\system.data.sqlclient\\4.8.5\\system.data.sqlclient.4.8.5.nupkg.sha512",
-    "C:\\Users\\egzamin\\.nuget\\packages\\system.security.accesscontrol\\4.7.0\\system.security.accesscontrol.4.7.0.nupkg.sha512",
-    "C:\\Users\\egzamin\\.nuget\\packages\\system.security.principal.windows\\4.7.0\\system.security.principal.windows.4.7.0.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

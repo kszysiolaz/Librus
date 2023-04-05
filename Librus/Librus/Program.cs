@@ -8,7 +8,7 @@ namespace Librus
         static void Main(string[] args)
         {
             // Utwórz połączenie z bazą danych
-            string connectionString = "Data Source=(local);Initial Catalog=MyDatabase;Integrated Security=True";
+            string connectionString = "Data Source=(local);Initial Catalog=librus;User ID=root;Password= ";
             SqlConnection connection = new SqlConnection(connectionString);
 
             try
