@@ -8,36 +8,13 @@ namespace librus
     {
         static void Main(string[] args)
         {
-            int n = 0;
-            string login, haslo;
+            int n = 0, permission = 0, id = 0;
+            string login, haslo, imie = " ", nazwisko = " ";
 
-            /*string connectionString = "server=localhost;user id=root;password=;database=librus";
-            MySqlConnection conn = new MySqlConnection(connectionString);
 
-            try
-            {
-                conn.Open();
-                MySqlCommand cmd = new MySqlCommand("SELECT * FROM uzytkownicy", conn);
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Console.WriteLine("Id: {0}, imie: {1}, nazwisko: {2}", reader.GetInt32(0), reader.GetString(1), reader.GetString(2));
-                }
-            logowanie.login();
-
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            finally
-            {
-                conn.Close();
-            }
-            */
             string connectionString = "server=localhost;user id=root;password=;database=librus";
             MySqlConnection conn = new MySqlConnection(connectionString);
+            conn.Open();
             while (n == 0)
             {
                 Console.WriteLine("Logowanie");
@@ -46,29 +23,52 @@ namespace librus
                 Console.WriteLine("Podaj haslo: ");
                 haslo = Console.ReadLine();
                 logowanie logowanie = new logowanie();
-                MySqlCommand query = new MySqlCommand("SELECT status FROM uzytkownicy WHERE id = @id_uzytkownika", conn);
+                MySqlCommand query = new MySqlCommand("SELECT Id,imie,nazwisko,status FROM uzytkownicy WHERE id = @id_uzytkownika", conn);
                 query.Parameters.AddWithValue("@id_uzytkownika", logowanie.login(login, haslo));
                 MySqlDataReader status = query.ExecuteReader();
                 int menu = 0;
-                while(menu == 0)
+                if (status.Read())
                 {
-                    switch(status.GetInt32(0))
+                    id = int.Parse(status["Id"].ToString());
+                    permission = int.Parse(status["status"].ToString());
+                    nazwisko = status["nazwisko"].ToString();
+                    imie = status["imie"].ToString();
+                }
+                while (menu == 0)
+                {
+                    switch (permission)
                     {
                         case 1:
-                            //nauczyciel
+                            Console.WriteLine("Nauczyciel");
+
                             break;
                         case 2:
+                            Console.WriteLine("----------------------------------------------------------------");
+                            Console.WriteLine("MENU\n1 - oceny\n2 - uwagi\n (...) - wyloguj");
+                            int wybor = int.Parse(Console.ReadLine());
+                            Uczen uczen = new Uczen();
+                            switch (wybor)
+                            {
+                                case 1:
+                                    uczen.oceny(id);
+                                    break;
+                                case 2:
+
+                                    break;
+                                default:
+                                    menu = 1295235;
+                                    break;
+                            }
                             //uczen i rodzic
                             break;
                         case 3:
+                            Console.WriteLine("admin");
                             //administrator
                             break;
                     }
                 }
+
             }
-
-
-
         }
     }
 }

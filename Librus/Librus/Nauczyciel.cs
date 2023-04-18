@@ -8,5 +8,7 @@ namespace Librus
 {
     internal class Nauczyciel
     {
+        string imie;
+        string nazwisko;
     }
 }
