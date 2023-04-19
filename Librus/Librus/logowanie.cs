@@ -16,14 +16,13 @@ namespace Librus
             MySqlDataReader reader = query.ExecuteReader();
             if (reader.Read())
             {
-                Console.WriteLine("dziala");
                 Id = Int32.Parse(reader["Id"].ToString());
             }
             else
             {
                 Console.WriteLine("Brak danych !");
             }
-            Console.WriteLine(Id);
+            
             reader.Close();
             conn.Close();
             return Id;
