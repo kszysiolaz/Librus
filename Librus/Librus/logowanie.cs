@@ -17,13 +17,14 @@ namespace Librus
             if (reader.Read())
             {
                 Id = Int32.Parse(reader["Id"].ToString());
+                reader.Close();
             }
             else
             {
                 Console.WriteLine("Brak danych !");
+                reader.Close();
             }
-            
-            reader.Close();
+
             conn.Close();
             return Id;
         }
