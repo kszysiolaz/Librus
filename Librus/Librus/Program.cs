@@ -8,8 +8,12 @@ namespace Librus
         static void Main(string[] args)
         {
             // Utwórz połączenie z bazą danych
+<<<<<<< Updated upstream
             string connectionString = "Data Source=(local);Initial Catalog=librus;User ID=root;Password= ";
             SqlConnection connection = new SqlConnection(connectionString);
+=======
+            string connectionString = "server=localhost;database=librus;user id=root;password=;";
+>>>>>>> Stashed changes
 
             try
             {
