@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System;
 
 
 namespace Librus
@@ -31,78 +32,45 @@ namespace Librus
                 Console.WriteLine("Imie: " + uczen.GetString(0) + "\nNazwisko: " + uczen.GetString(1) + "\nKlasa:" + uczen.GetString(2));
             }
             uczen.Close();
-            // --------------------------------------------------Matematyka--------------------------------------------------------
-            string kwerenda_matematyka = "SELECT ocena,przedmiot FROM  oceny, przedmioty WHERE id_ucznia=" + id + " AND przedmioty.Id=oceny.id_przedmiotu AND przedmiot='Matematyka' order by przedmiot";
-            MySqlCommand query_matematyka = new MySqlCommand(kwerenda_matematyka, conn);
-            MySqlDataReader wynik_matematyka = query_matematyka.ExecuteReader();
-            // Dodac brak ocen przy pustym wyniku
-            
-                Console.Write("\nMatematyka: ");
+
+            MySqlCommand query_przedmioty = new MySqlCommand("SELECT przedmiot FROM przedmioty", conn);
+            MySqlDataReader przedmioty = query_przedmioty.ExecuteReader();
+            List<string> przedmiots = new List<string>();
+
+            while(przedmioty.Read())
+            {
+                przedmiots.Add(przedmioty.GetString(0));
+            }
+            przedmioty.Close();
+            for (int i = 0; i < przedmiots.Count; i++)
+            {
+
+                string kwerenda = "SELECT COUNT(*) as ile, ocena,przedmiot FROM  oceny, przedmioty WHERE id_ucznia=" + id + " AND przedmioty.Id=oceny.id_przedmiotu AND przedmiot='" + przedmiots[i] + "' order by przedmiot";
+                MySqlCommand query_matematyka = new MySqlCommand(kwerenda, conn);
+                MySqlDataReader wynik_matematyka = query_matematyka.ExecuteReader();
+                Console.Write("\n" + przedmiots[i] + ": ");
+
                 while (wynik_matematyka.Read())
                 {
-                    Console.Write(wynik_matematyka["ocena"].ToString() + " ");
-                }
-                Console.WriteLine();
-            
-            wynik_matematyka.Close();
-
-            // --------------------------------------------------Polski--------------------------------------------------------
-            string kwerenda_polski = "SELECT ocena,przedmiot FROM  oceny, przedmioty WHERE id_ucznia=" + id + " AND przedmioty.Id=oceny.id_przedmiotu AND przedmiot='Polski' order by przedmiot";
-            MySqlCommand query_polski = new MySqlCommand(kwerenda_polski, conn);
-            MySqlDataReader wynik_polski = query_polski.ExecuteReader();
-            
-
-                Console.Write("Jezyk Polski: ");
-                while (wynik_polski.Read())
-                {
-                    Console.Write(wynik_polski["ocena"].ToString() + " ");
-                }
-                Console.WriteLine();
-            wynik_polski.Close();
-            // --------------------------------------------------Historia--------------------------------------------------------
-            string kwerenda_historia = "SELECT ocena,przedmiot FROM  oceny, przedmioty WHERE id_ucznia=" + id + " AND przedmioty.Id=oceny.id_przedmiotu AND przedmiot='Historia' order by przedmiot";
-            MySqlCommand query_historia = new MySqlCommand(kwerenda_historia, conn);
-            MySqlDataReader wynik_historia = query_historia.ExecuteReader();
-            
-
-                Console.Write("Historia: ");
-                while (wynik_historia.Read())
-                {
-                    Console.Write(wynik_historia["ocena"].ToString() + " ");
-                }
-                Console.WriteLine();
-
-            wynik_historia.Close();
-            // --------------------------------------------------Biologia--------------------------------------------------------
-            string kwerenda_biologia = "SELECT ocena,przedmiot FROM  oceny, przedmioty WHERE id_ucznia=" + id + " AND przedmioty.Id=oceny.id_przedmiotu AND przedmiot='Biologia' order by przedmiot";
-            MySqlCommand query_biologia = new MySqlCommand(kwerenda_biologia, conn);
-            MySqlDataReader wynik_biologia = query_biologia.ExecuteReader();
-            
-
-                Console.Write("Biologia: ");
-                while (wynik_biologia.Read())
-                {
-                    Console.Write(wynik_biologia["ocena"].ToString() + " ");
-                }
-                Console.WriteLine();
-
-            wynik_biologia.Close();
-            // --------------------------------------------------Programowanie_ob--------------------------------------------------------
-            string kwerenda_programowanie_ob = "SELECT ocena,przedmiot FROM  oceny, przedmioty WHERE id_ucznia=" + id + " AND przedmioty.Id=oceny.id_przedmiotu AND przedmiot='Programowanie_ob' order by przedmiot";
-            MySqlCommand query_programowanie_ob = new MySqlCommand(kwerenda_programowanie_ob, conn);
-            MySqlDataReader wynik_programowanie_ob = query_programowanie_ob.ExecuteReader();
-
-
-                Console.Write("Programowanie Obiektowe: ");
-                while (wynik_programowanie_ob.Read())
-                {
-                    Console.Write(wynik_programowanie_ob["ocena"].ToString() + " ");
-                }
-                Console.WriteLine();
-
-            wynik_programowanie_ob.Close();
-            conn.Close();
+                    if (int.Parse(wynik_matematyka["ile"].ToString()) > 0)
+                    {
+                        Console.Write(wynik_matematyka["ocena"].ToString() + " ");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("Brak ocen!");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }                 
+                }             
+                wynik_matematyka.Close();
             }
+
+            // Dodac brak ocen przy pustym wyniku
+
+           
+
+        }
         //wyswietl uwagi
         public void uwagi(int id)
         {

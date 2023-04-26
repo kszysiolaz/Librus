@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Librus
@@ -12,6 +13,7 @@ namespace Librus
     {
         private int id;
         private int id_przedmiotu;
+        int id_ucznia;
         public Nauczyciel(int _id)
         {
             this.id = _id;
@@ -32,7 +34,12 @@ namespace Librus
                 using (MySqlCommand dodajocene = new MySqlCommand(dodajocene_kwerenda, conn))
                 {
                     dodajocene.ExecuteNonQuery();
+
                 }
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Pomyślnie dodano ocenę!");
+                Console.ForegroundColor = ConsoleColor.White;
             }
             else
             {
@@ -67,6 +74,10 @@ namespace Librus
             {
                 edytuj_ocene.ExecuteNonQuery();
             }
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Pomyślnie edytowano ocenę!");
+            Console.ForegroundColor = ConsoleColor.White;
             conn.Close();
         }
         public void read_ocena()
@@ -139,16 +150,59 @@ namespace Librus
             {
                 edytuj_ocene.ExecuteNonQuery();
             }
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Pomyślnie usunięto ocenę!");
+            Console.ForegroundColor = ConsoleColor.White;
             conn.Close();
         }
         //---------------------------------------DZIALANIE NA UWAGACH---------------------------------------
         public void create_uwaga()
         {
+            read_uwaga();
+            Console.WriteLine("Treść");
+            string tresc = Console.ReadLine();
 
+            string connectionString = "server=localhost;user id=root;password=;database=librus";
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            conn.Open();
+
+            string query_uwaga = "INSERT INTO uwagi(id_ucznia, id_nauczyciela, uwaga, data) VALUES(" + this.id_ucznia + "," + this.id +",'" + tresc + "' , NOW());";
+            
+
+            using (MySqlCommand result_uwaga = new MySqlCommand(query_uwaga, conn))
+            {
+                result_uwaga.ExecuteNonQuery();
+            }
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Pomyślnie dodano uwagę!");
+            Console.ForegroundColor = ConsoleColor.White;
+            conn.Close();
         }
         public void edit_uwaga()
         {
+            string connectionString = "server=localhost;user id=root;password=;database=librus";
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            conn.Open();
+            read_uwaga();
+            Console.WriteLine("Id uwagi: ");
+            int id_uwagi = int.Parse(Console.ReadLine());
 
+            Console.WriteLine("Tresc");
+            string tresc = Console.ReadLine();
+
+            string query_edytuj = "UPDATE uwagi SET uwaga = '" + tresc + "' WHERE Id ="+id_uwagi;
+
+            using (MySqlCommand result_edytuj = new MySqlCommand(query_edytuj, conn))
+            {
+                result_edytuj.ExecuteNonQuery();
+            }
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Pomyślnie edytowano uwagę!");
+            Console.ForegroundColor = ConsoleColor.White;
+            conn.Close();
         }
         public void read_uwaga()
         {
@@ -189,15 +243,15 @@ namespace Librus
                 Console.WriteLine(ids[i] + " " + imiona[i] + " " + nazwiska[i] + " ");//wypisywanie danych
             }
             Console.Write("Podaj Id ucznia: ");
-            int id_ucznia = int.Parse(Console.ReadLine());
+            id_ucznia = int.Parse(Console.ReadLine());
 
-                string uwagi_kwerenda = "SELECT uwaga, data FROM uwagi WHERE id_ucznia=" + id_ucznia + " AND uwagi.id_nauczyciela=" + this.id; // pobieranie ocen z danego przedmiotu
+                string uwagi_kwerenda = "SELECT Id, uwaga, data FROM uwagi WHERE id_ucznia=" + id_ucznia + " AND uwagi.id_nauczyciela=" + this.id; // pobieranie ocen z danego przedmiotu
                 MySqlCommand uwagi_query = new MySqlCommand(uwagi_kwerenda, conn);
                 MySqlDataReader uwagi = uwagi_query.ExecuteReader();
                 
                 while (uwagi.Read())
                 {
-                    Console.Write(uwagi["data"] + " | " + uwagi["uwaga"]);//wypisaywanie ocen obok uzytkownika
+                    Console.Write(uwagi["Id"] + " | " + uwagi["data"] + " | " + uwagi["uwaga"]);//wypisaywanie ocen obok uzytkownika
                 }
                 Console.WriteLine();
                 uwagi.Close();
@@ -205,6 +259,24 @@ namespace Librus
         }
         public void delete_uwaga()
         {
+            string connectionString = "server=localhost;user id=root;password=;database=librus";
+            MySqlConnection conn = new MySqlConnection(connectionString);
+            conn.Open();
+            read_uwaga();
+            Console.WriteLine("Id uwagi: ");
+            int id_uwagi = int.Parse(Console.ReadLine());
+
+            string query_edytuj = "DELETE FROM uwagi WHERE Id =" + id_uwagi;
+
+            using (MySqlCommand result_edytuj = new MySqlCommand(query_edytuj, conn))
+            {
+                result_edytuj.ExecuteNonQuery();
+            }
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Pomyślnie usunięto uwagę!");
+            Console.ForegroundColor = ConsoleColor.White;
+            conn.Close();
 
         }
     }

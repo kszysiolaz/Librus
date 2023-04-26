@@ -37,12 +37,16 @@ namespace librus
                     id = int.Parse(status["Id"].ToString());
                     permission = int.Parse(status["status"].ToString());
                     status.Close();
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Pomyślnie zalogowano!");
+                    Console.ForegroundColor = ConsoleColor.White;
                     while (menu == 0)
                     {
                         switch (permission)
                         {
                             case 1://nauczyciel
-                                Console.WriteLine("----------------------------------------------------------------");
+                                Console.WriteLine("\n-------------------------------");
                                 Console.WriteLine("MENU OCENY \n1 - dodaj \n2 - usun\n3 - edytuj\n4 - wyswietl\nMENU UWAG \n5 - dodaj \n6 - usun\n7 - edytuj\n8 - wyswietl\nMENU DODATKOWE\n9 - wyloguj\n0 - zakoncz program");
                                 int wybor2 = Int32.Parse(Console.ReadLine());
                                 Nauczyciel nauczyciel = new Nauczyciel(id);
@@ -60,6 +64,15 @@ namespace librus
                                     case 4:
                                         nauczyciel.read_ocena();
                                         break;
+                                    case 5:
+                                        nauczyciel.create_uwaga();
+                                        break;
+                                    case 6:
+                                        nauczyciel.delete_uwaga();
+                                        break;
+                                    case 7:
+                                        nauczyciel.edit_uwaga();
+                                        break;
                                     case 8:
                                         nauczyciel.read_uwaga();
                                         break;
@@ -73,7 +86,7 @@ namespace librus
                                 }
                                 break;
                             case 2://uczen
-                                Console.WriteLine("----------------------------------------------------------------");
+                                Console.WriteLine("---------------------------------");
                                 Console.WriteLine("MENU\n1 - oceny\n2 - uwagi\n3 - wyloguj\n4 - Wylacz program");
 
                                 int wybor = int.Parse(Console.ReadLine());
@@ -101,6 +114,10 @@ namespace librus
                                 break;
                         }
                     }
+                }
+                else
+                {
+                    status.Close();
                 }
             }
         }

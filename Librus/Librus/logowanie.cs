@@ -21,7 +21,11 @@ namespace Librus
             }
             else
             {
-                Console.WriteLine("Brak danych !");
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Niepoprawny login lub hasło!");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("------------------------------");
                 reader.Close();
             }
 
