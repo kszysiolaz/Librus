@@ -6,8 +6,13 @@ namespace Librus
 {
     internal class Uczen
     {
+        public int id;
+        public Uczen(int id)
+        {
+            this.id = id;
+        }
         //wyswietl dane dla danego ucznia
-        public void wyswietl(int id)
+        public void wyswietl()
         {
             string connectionString = "server=localhost;user id=root;password=;database=librus";
             MySqlConnection conn = new MySqlConnection(connectionString);
@@ -15,11 +20,12 @@ namespace Librus
             MySqlCommand query = new MySqlCommand("SELECT imie,nazwisko,klasa FROM uzytkownicy JOIN klasy ON klasy.id = uzytkownicy.id_klasa WHERE uzytkownicy.id = @id", conn);
             query.Parameters.AddWithValue("@id", id);
             MySqlDataReader uczen = query.ExecuteReader();
+            Console.WriteLine();
             Console.WriteLine("Imie: " + uczen.GetString(0)+ "\nNazwisko: " + uczen.GetString(1) + "\nKlasa:" + uczen.GetString(2));
             conn.Close();
         }
         //wyswietl oceny
-        public void oceny(int id)
+        public void oceny()
         {
             string connectionString = "server=localhost;user id=root;password=;database=librus";
             MySqlConnection conn = new MySqlConnection(connectionString);
@@ -70,7 +76,7 @@ namespace Librus
             // Dodac brak ocen przy pustym wyniku
         }
         //wyswietl uwagi
-        public void uwagi(int id)
+        public void uwagi()
         {
             string connectionString = "server=localhost;user id=root;password=;database=librus";
             MySqlConnection conn = new MySqlConnection(connectionString);
@@ -99,12 +105,6 @@ namespace Librus
             Console.WriteLine();
 
             wynik_uwagi.Close();
-
-
-
-
-
-
             conn.Close();
         }
     }

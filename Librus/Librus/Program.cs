@@ -96,14 +96,14 @@ namespace librus
                                 Console.WriteLine("MENU\n1 - Oceny\n2 - Uwagi\n3 - Wyloguj\n4 - Zakoncz program");
 
                                 int wybor = int.Parse(Console.ReadLine());
-                                Uczen uczen = new Uczen();
+                                Uczen uczen = new Uczen(id);
                                 switch (wybor)
                                 {
                                     case 1:
-                                        uczen.oceny(id);
+                                        uczen.oceny();
                                         break;
                                     case 2:
-                                        uczen.uwagi(id);
+                                        uczen.uwagi();
                                         break;
                                     case 3:
                                         menu = 1295235;
