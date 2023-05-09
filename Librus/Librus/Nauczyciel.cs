@@ -25,6 +25,7 @@ namespace Librus
             string connectionString = "server=localhost;user id=root;password=;database=librus";
             MySqlConnection conn = new MySqlConnection(connectionString);
             read_ocena();
+            conn.Open();
             Console.Write("Podaj id ucznia: ");
             int uczen_id = Int32.Parse(Console.ReadLine());
             Console.Write("Podaj ocene: ");
@@ -93,7 +94,6 @@ namespace Librus
             {
                 this.id_przedmiotu = int.Parse(nauczyciel["id_przedmiot"].ToString());
             }
-
             nauczyciel.Close();
             //wyszukiwanie ucznia po klasie
             Console.Write("Podaj klase: ");
@@ -102,7 +102,7 @@ namespace Librus
             MySqlCommand klasa_query = new MySqlCommand(klasa_kwerenda, conn);
             MySqlDataReader uczen = klasa_query.ExecuteReader();
             List<int> ids = new List<int>(); // lista id uczniow
-            List<string> imiona = new List<string>(); // lista imion uczniwo
+            List<string> imiona = new List<string>(); // lista imion uczniow
             List<string> nazwiska = new List<string>(); //lista nazwisko uczniow
             while (uczen.Read())//dodawanie do list danych z select klasa_kwerenda
             {
@@ -113,13 +113,13 @@ namespace Librus
             uczen.Close();
             for (int i = 0; i < ids.Count; i++) // Wypisanie uczniow z danej klasy
             {
-                string przedmiot_kwerenda = "SELECT ocena FROM  oceny, przedmioty WHERE id_ucznia=" + ids[i] + " AND przedmioty.Id=" + id_przedmiotu; // pobieranie ocen z danego przedmiotu
+                string przedmiot_kwerenda = "SELECT ocena FROM oceny WHERE id_ucznia=" + ids[i] + " AND id_przedmiotu=" + id_przedmiotu; // pobieranie ocen z danego przedmiotu
                 MySqlCommand przedmiot_query = new MySqlCommand(przedmiot_kwerenda, conn);
                 MySqlDataReader przedmiot = przedmiot_query.ExecuteReader();
                 Console.Write(ids[i] + " " + imiona[i] + " " + nazwiska[i] + " ");//wypisywanie danych
                 while (przedmiot.Read())
                 {
-                    Console.Write(przedmiot["ocena"] + " ");//wypisaywanie ocen obok uzytkownika
+                    Console.Write(przedmiot["ocena"] + " ");//wypisywanie ocen obok uzytkownika
                 }
                 Console.WriteLine();
                 przedmiot.Close();
@@ -245,16 +245,16 @@ namespace Librus
             Console.Write("Podaj Id ucznia: ");
             id_ucznia = int.Parse(Console.ReadLine());
 
-                string uwagi_kwerenda = "SELECT Id, uwaga, data FROM uwagi WHERE id_ucznia=" + id_ucznia + " AND uwagi.id_nauczyciela=" + this.id; // pobieranie ocen z danego przedmiotu
-                MySqlCommand uwagi_query = new MySqlCommand(uwagi_kwerenda, conn);
-                MySqlDataReader uwagi = uwagi_query.ExecuteReader();
-                
-                while (uwagi.Read())
-                {
-                    Console.Write(uwagi["Id"] + " | " + uwagi["data"] + " | " + uwagi["uwaga"]);//wypisaywanie ocen obok uzytkownika
-                }
-                Console.WriteLine();
-                uwagi.Close();
+            string uwagi_kwerenda = "SELECT Id, uwaga, data FROM uwagi WHERE id_ucznia=" + id_ucznia + " AND id_nauczyciela=" + this.id; // pobieranie uwag od danego nauczyciela
+            MySqlCommand uwagi_query = new MySqlCommand(uwagi_kwerenda, conn);
+            MySqlDataReader uwagi = uwagi_query.ExecuteReader();
+            Console.WriteLine("------------------------------");
+            while (uwagi.Read())
+            {
+                Console.Write(uwagi["Id"] + " | " + uwagi["data"] + " | " + uwagi["uwaga"]);//wypisaywanie ocen obok uzytkownika
+            }
+            Console.WriteLine();
+            uwagi.Close();
             conn.Close();
         }
         public void delete_uwaga()

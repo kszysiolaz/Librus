@@ -62,14 +62,12 @@ namespace Librus
                         Console.Write("Brak ocen!");
                         Console.ForegroundColor = ConsoleColor.White;
                     }                 
-                }             
+                }
+                Console.WriteLine();
                 wynik_matematyka.Close();
             }
 
             // Dodac brak ocen przy pustym wyniku
-
-           
-
         }
         //wyswietl uwagi
         public void uwagi(int id)
@@ -88,7 +86,7 @@ namespace Librus
 
             // wypisanie uwagi 
             
-            string kwerenda_uwagi = "SELECT uwaga, data FROM uwagi WHERE id_ucznia=" + id + " order by data";
+            string kwerenda_uwagi = "SELECT uwagi.uwaga, uwagi.data, uzytkownicy.Imie, uzytkownicy.Nazwisko FROM uwagi, uzytkownicy WHERE id_ucznia=" + id + " AND uzytkownicy.Id = uwagi.id_nauczyciela order by data";
             MySqlCommand query_uwagi = new MySqlCommand(kwerenda_uwagi, conn);
             MySqlDataReader wynik_uwagi = query_uwagi.ExecuteReader();
             
@@ -96,7 +94,7 @@ namespace Librus
             Console.WriteLine("\nUwagi: ");
             while (wynik_uwagi.Read())
             {
-                Console.WriteLine(wynik_uwagi["data"].ToString() + " | " + wynik_uwagi["uwaga"].ToString());
+                Console.WriteLine(wynik_uwagi["data"].ToString() + " | " + wynik_uwagi["Imie"].ToString() + " " + wynik_uwagi["Nazwisko"].ToString() + " | " + wynik_uwagi["uwaga"].ToString());
             }
             Console.WriteLine();
 

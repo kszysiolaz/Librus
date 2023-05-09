@@ -47,7 +47,7 @@ namespace librus
                         {
                             case 1://nauczyciel
                                 Console.WriteLine("\n-------------------------------");
-                                Console.WriteLine("MENU OCENY \n1 - dodaj \n2 - usun\n3 - edytuj\n4 - wyswietl\nMENU UWAG \n5 - dodaj \n6 - usun\n7 - edytuj\n8 - wyswietl\nMENU DODATKOWE\n9 - wyloguj\n0 - zakoncz program");
+                                Console.WriteLine("MENU OCENY \n1 - Dodaj \n2 - Usun\n3 - Edytuj\n4 - Wyswietl\nMENU UWAG \n5 - Dodaj \n6 - Usun\n7 - Edytuj\n8 - Wyswietl\nMENU DODATKOWE\n9 - Wyloguj\n0 - Zakoncz program");
                                 int wybor2 = Int32.Parse(Console.ReadLine());
                                 Nauczyciel nauczyciel = new Nauczyciel(id);
                                 switch (wybor2)
@@ -78,6 +78,12 @@ namespace librus
                                         break;
                                     case 9:
                                         menu = 1;
+                                        Console.Clear();
+                                        Console.ForegroundColor = ConsoleColor.Green;
+                                        Console.WriteLine("Pomyślnie wylogowano!");
+                                        Console.ForegroundColor = ConsoleColor.White;
+                                        Console.WriteLine("------------------------------");
+                                        Console.WriteLine();
                                         break;
                                     case 0:
                                         menu = 1;
@@ -87,7 +93,7 @@ namespace librus
                                 break;
                             case 2://uczen
                                 Console.WriteLine("---------------------------------");
-                                Console.WriteLine("MENU\n1 - oceny\n2 - uwagi\n3 - wyloguj\n4 - Wylacz program");
+                                Console.WriteLine("MENU\n1 - Oceny\n2 - Uwagi\n3 - Wyloguj\n4 - Zakoncz program");
 
                                 int wybor = int.Parse(Console.ReadLine());
                                 Uczen uczen = new Uczen();
@@ -101,6 +107,12 @@ namespace librus
                                         break;
                                     case 3:
                                         menu = 1295235;
+                                        Console.Clear();
+                                        Console.ForegroundColor = ConsoleColor.Green;
+                                        Console.WriteLine("Pomyślnie wylogowano!");
+                                        Console.ForegroundColor = ConsoleColor.White;
+                                        Console.WriteLine("------------------------------");
+                                        Console.WriteLine();
                                         break;
                                     default:
                                         menu = 1;
